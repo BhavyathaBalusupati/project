@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab Technician - Manage Problems</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 30px; }
+        .card { background: white; padding: 20px; border-radius: 10px; width: 900px; margin: auto; box-shadow: 0 0 10px gray; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+        .btn { padding: 6px 10px; border: none; cursor: pointer; border-radius: 4px; color: white; }
+        .delete { background: red; }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Lab Technician Panel</h2>
+
+<div class="card">
+
+    <!-- Technician Name -->
+    <label>Enter Technician Name:</label>
+    <input type="text" id="techName" placeholder="Enter your name" style="width:100%; padding:8px;">
+    <button onclick="loadProblems()" style="width:100%; margin-top:10px; padding:10px;">View Problems</button>
+
+    <h3>Reported Problems</h3>
+
+    <table id="problemTable">
+        <tr>
+            <th>Lab</th>
+            <th>System No.</th>
+            <th>Problem</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+// Load all issues from localStorage
+function loadProblems() {
+    const table = document.getElementById("problemTable");
+
+    // Reset table
+    table.innerHTML = `
+        <tr>
+            <th>Lab</th>
+            <th>System No.</th>
+            <th>Problem</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    `;
+
+    // Get issues from localStorage
+    const issues = JSON.parse(localStorage.getItem("issues")) || [];
+
+    if(issues.length === 0){
+        const row = table.insertRow();
+        const cell = row.insertCell(0);
+        cell.colSpan = 5;
+        cell.innerHTML = "No issues reported.";
+        return;
+    }
+
+    issues.forEach((issue, index) => {
+        const row = table.insertRow();
+
+        row.innerHTML = `
+            <td>${issue.lab || "N/A"}</td>
+            <td>${issue.system || "N/A"}</td>
+            <td>${issue.problem}</td>
+            <td>
+                <select onchange="updateStatus(${index}, this.value)">
+                    <option value="Pending" ${issue.status === "Pending" ? "selected" : ""}>Pending</option>
+                    <option value="In Progress" ${issue.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                    <option value="Resolved" ${issue.status === "Resolved" ? "selected" : ""}>Resolved</option>
+                </select>
+            </td>
+            <td>
+                <button class="btn delete" onclick="deleteProblem(${index})">Remove</button>
+            </td>
+        `;
+    });
+}
+
+// Update status of an issue
+function updateStatus(index, newStatus) {
+    const issues = JSON.parse(localStorage.getItem("issues")) || [];
+    issues[index].status = newStatus;
+    localStorage.setItem("issues", JSON.stringify(issues));
+    alert("Status Updated!");
+}
+
+// Delete an issue
+function deleteProblem(index) {
+    const issues = JSON.parse(localStorage.getItem("issues")) || [];
+    issues.splice(index, 1);
+    localStorage.setItem("issues", JSON.stringify(issues));
+    loadProblems();
+    alert("Problem Removed!");
+}
+</script>
+
+</body>
+</html>

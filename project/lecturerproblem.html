@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lecturer - Report System Problem</title>
+    <style>
+        body { font-family: Arial; padding: 40px; background-color: #f4f4f4; }
+        .card { width: 450px; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px gray; background-color: white; margin: auto; }
+        input, textarea, select { width: 100%; padding: 10px; margin-top: 10px; margin-bottom: 10px; font-size: 14px; border-radius: 4px; border: 1px solid #ccc; }
+        button { width: 100%; padding: 10px; margin-top: 10px; font-size: 16px; cursor: pointer; background-color: #007BFF; color: white; border: none; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Report a System Problem</h2>
+
+<div class="card">
+    <form id="problemForm">
+
+        <label for="lecturerName">Lecturer Name:</label>
+        <input type="text" id="lecturerName" placeholder="Enter your name" required>
+
+        <label for="department">Department:</label>
+        <select id="department" required>
+            <option value="" disabled selected>Select your department</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Other">Other (Enter manually)</option>
+        </select>
+        <input type="text" id="departmentManual" placeholder="Enter your department" style="display:none;">
+
+        <label for="labName">Lab Name:</label>
+        <input type="text" id="labName" placeholder="Enter Lab Name (Ex: LAB-2)" required>
+
+        <label for="systemNumber">System Number:</label>
+        <input type="text" id="systemNumber" placeholder="Enter System Number (Ex: 10)" required>
+
+        <label for="problemType">Problem Type:</label>
+        <select id="problemType" required>
+            <option value="" disabled selected>Select a problem</option>
+            <option value="Login issues">Login issues</option>
+            <option value="System running slow">System running slow</option>
+            <option value="Data not loading">Data not loading</option>
+            <option value="Error messages appearing">Error messages appearing</option>
+            <option value="Other">Other (Enter manually)</option>
+        </select>
+        <input type="text" id="problemManual" placeholder="Describe the problem manually" style="display:none;">
+
+        <button type="submit">Submit Problem</button>
+    </form>
+</div>
+
+<script>
+// Show manual fields
+document.getElementById('department').addEventListener('change', () => {
+    document.getElementById('departmentManual').style.display =
+        document.getElementById('department').value === "Other" ? "block" : "none";
+});
+document.getElementById('problemType').addEventListener('change', () => {
+    document.getElementById('problemManual').style.display =
+        document.getElementById('problemType').value === "Other" ? "block" : "none";
+});
+
+// Submit handler
+document.getElementById('problemForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const lecturerName = document.getElementById('lecturerName').value.trim();
+    let dept = document.getElementById('department').value;
+    if(dept === "Other") dept = document.getElementById('departmentManual').value.trim();
+
+    const lab = document.getElementById('labName').value.trim();
+    const system = document.getElementById('systemNumber').value.trim();
+
+    let problem = document.getElementById('problemType').value;
+    if(problem === "Other") problem = document.getElementById('problemManual').value.trim();
+
+    // Create object compatible with admin.html
+    const issue = {
+        user_type: "Lecturer",  // consistent with students
+        name: lecturerName,
+        department: dept,
+        lab: lab,
+        system: system,
+        problem: problem,
+        status: "Pending",
+        time: new Date().toLocaleString()
+    };
+
+    // Get existing issues from localStorage
+    const issues = JSON.parse(localStorage.getItem("issues")) || [];
+
+    // Add new issue
+    issues.push(issue);
+
+    // Save back to localStorage
+    localStorage.setItem("issues", JSON.stringify(issues));
+
+    alert("Problem submitted successfully!");
+    document.getElementById('problemForm').reset();
+    document.getElementById('departmentManual').style.display = "none";
+    document.getElementById('problemManual').style.display = "none";
+});
+</script>
+
+</body>
+</html>

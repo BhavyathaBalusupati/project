@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Page</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+        }
+        .card {
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px gray;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Select Your Role</h2>
+
+<div class="card">
+    <button onclick="openStudent()">Student</button>
+    <button onclick="openLecturer()">Lecturer</button>
+    <button onclick="openLabTech()">Lab Technician</button>
+    <button onclick="openAdmin()">Admin</button>
+</div>
+
+<script>
+function openStudent() {
+    window.location.href = "issue.html";   // Opens your existing login page
+}
+
+function openLecturer() {
+    
+    window.location.href = "lecturerproblem.html";
+}3
+
+function openLabTech() {
+    window.location.href="technician.html";
+}
+
+function openAdmin() {
+      window.location.href="admin.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+    text-align:center;
+}
+
+h2{
+    background:#333;
+    color:white;
+    padding:12px;
+    margin:0;
+}
+
+table{
+    margin:30px auto;
+    border-collapse:collapse;
+    width:85%;
+    background:white;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:12px;
+}
+
+th{
+    background:#444;
+    color:white;
+}
+
+.pending{
+    color:red;
+    font-weight:bold;
+}
+
+.in-progress{
+    color:orange;
+    font-weight:bold;
+}
+
+.resolved{
+    color:green;
+    font-weight:bold;
+}
+
+.no-data{
+    padding:20px;
+    font-weight:bold;
+    text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Admin - Lab Issues Dashboard</h2>
+
+<table id="issueTable">
+<tr>
+    <th>Lab Name</th>
+    <th>System Number</th>
+    <th>Problem</th>
+    <th>Status</th>
+</tr>
+</table>
+
+<script>
+// Load issues from localStorage
+const issues = JSON.parse(localStorage.getItem("issues")) || [];
+const table = document.getElementById("issueTable");
+
+if(issues.length === 0){
+    const row = table.insertRow();
+    const cell = row.insertCell(0);
+    cell.colSpan = 4;
+    cell.className = "no-data";
+    cell.innerHTML = "No issues reported";
+}
+
+// Display issues
+issues.forEach(issue => {
+    const row = table.insertRow();
+    const labCell = row.insertCell(0);
+    const systemCell = row.insertCell(1);
+    const problemCell = row.insertCell(2);
+    const statusCell = row.insertCell(3);
+
+    labCell.innerHTML = issue.lab;
+    systemCell.innerHTML = issue.system;
+    problemCell.innerHTML = issue.problem;
+    statusCell.innerHTML = issue.status;
+
+    // Set color class based on status
+    if(issue.status === "Pending") statusCell.className = "pending";
+    else if(issue.status === "In Progress") statusCell.className = "in-progress";
+    else if(issue.status === "Resolved") statusCell.className = "resolved";
+});
+</script>
+
+</body>
+</html>

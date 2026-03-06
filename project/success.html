@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            text-align: center;
+            background-color: #f0fff0;
+        }
+        .box {
+            background: white;
+            padding: 25px;
+            width: 350px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        h2 {
+            color: green;
+            font-size: 24px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>✔ Problem Submitted Successfully!</h2>
+
+    <button onclick="goBack()">Go Back</button>
+</div>
+
+<script>
+function goBack() {
+    window.history.back();  // Goes back to issue.html or lecturerproblem.html
+}
+</script>
+
+</body>
+</html>
