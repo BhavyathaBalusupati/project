@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Issue Submission</title>
+
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f4f7; padding: 30px; }
+        .container { width: 500px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        label { font-weight: bold; margin-top: 10px; display: block; }
+        select, input, textarea, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+        textarea { height: 80px; }
+        button { background: #2b7cff; color: white; border: none; margin-top: 15px; cursor: pointer; }
+        button:hover { background: #0059d4; }
+    </style>
+
+    <script>
+        function toggleManualInput() {
+            const selected = document.getElementById("problemType").value;
+            document.getElementById("problemManual").style.display = (selected === "Other") ? "block" : "none";
+        }
+
+        function validateForm() {
+            const roll = document.getElementById("rollNumber").value;
+            const pattern = /^[0-9]{2}[A-Za-z]{2}[0-9][A-Za-z][0-9]{4}$/;
+
+            if (!pattern.test(roll)) {
+                alert("Invalid Roll Number Format!\nCorrect Format Example: 25SS5A0502");
+                return false;
+            }
+            return true;
+        }
+
+        function submitIssue(event) {
+            event.preventDefault();
+
+            if(!validateForm()) return;
+
+            // Get form values
+            const studentName = document.getElementById('studentName').value.trim();
+            const rollNumber = document.getElementById('rollNumber').value.trim();
+            const labName = document.getElementById('labName').value.trim();
+            const systemNumber = document.getElementById('systemNumber').value.trim();
+            const problemType = document.getElementById('problemType').value;
+            const problemManual = document.getElementById('problemManual').value.trim();
+
+            const problemText = (problemType === "Other") ? problemManual : problemType;
+
+            // Create issue object in format admin expects
+            const issue = {
+                user_type: "Student",
+                name: studentName,
+                roll_no: rollNumber,
+                lab: labName,            // admin.html expects 'lab'
+                system: systemNumber,    // admin.html expects 'system'
+                problem: problemText,
+                status: "Pending",
+                time: new Date().toLocaleString()
+            };
+
+            // Get existing issues from localStorage
+            const issues = JSON.parse(localStorage.getItem("issues")) || [];
+
+            // Add new issue
+            issues.push(issue);
+
+            // Save back to localStorage
+            localStorage.setItem("issues", JSON.stringify(issues));
+
+            alert("Issue submitted successfully!");
+            document.getElementById('issueForm').reset();
+            document.getElementById('problemManual').style.display = "none";
+        }
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Issue Submission</h2>
+
+    <form id="issueForm" onsubmit="submitIssue(event)">
+        <label>Student Name</label>
+        <input type="text" id="studentName" required>
+
+        <label>Roll Number</label>
+        <input type="text" id="rollNumber" maxlength="10" required>
+
+        <label>Lab Name</label>
+        <input type="text" id="labName" required>
+
+        <label>System Number</label>
+        <input type="text" id="systemNumber" required>
+
+        <label>Select Problem</label>
+        <select id="problemType" onchange="toggleManualInput()" required>
+            <option value="">-- Select a problem --</option>
+            <option value="System not turning on">System not turning on</option>
+            <option value="Software not opening">Software not opening</option>
+            <option value="Network issue">Network issue</option>
+            <option value="Keyboard/Mouse not working">Keyboard/Mouse not working</option>
+            <option value="Slow performance">Slow performance</option>
+            <option value="Other">Other (Enter manually)</option>
+        </select>
+
+        <label>Enter Problem (if selected 'Other')</label>
+        <textarea id="problemManual" style="display:none;"></textarea>
+
+        <button type="submit">Submit Issue</button>
+    </form>
+</div>
+
+</body>
+</html>
