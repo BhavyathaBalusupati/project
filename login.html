@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Issue Submission</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f7;
+            padding: 30px;
+        }
+
+        .container {
+            width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        select, input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        button {
+            background: #2b7cff;
+            color: white;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0059d4;
+        }
+    </style>
+
+    <script>
+        function toggleManualInput() {
+            const selected = document.getElementById("problemSelect").value;
+            const manualInput = document.getElementById("manualProblem");
+
+            if (selected === "other") {
+                manualInput.style.display = "block";
+            } else {
+                manualInput.style.display = "none";
+            }
+        }
+    </script>
+
+</head>
+<body>
+
+    <div class="container">
+        <h2>Student Issue Submission</h2>
+
+        <form action="success.html" method="POST">
+
+            <!-- System Name -->
+            <label>System Name</label>
+            <input type="text" name="systemName" placeholder="Enter system name" required>
+
+            <!-- Problem Selection -->
+            <label>Select Problem</label>
+            <select id="problemSelect" name="problemSelect" onchange="toggleManualInput()" required>
+                <option value="">-- Select a problem --</option>
+                <option value="System not turning on">System not turning on</option>
+                <option value="Software not opening">Software not opening</option>
+                <option value="Network issue">Network issue</option>
+                <option value="Keyboard/Mouse not working">Keyboard/Mouse not working</option>
+                <option value="Slow performance">Slow performance</option>
+                <option value="other">Other (Enter manually)</option>
+            </select>
+
+            <!-- Manual Problem Input -->
+            <label>Enter Problem Manually (if selected 'Other')</label>
+            <textarea id="manualProblem" name="manualProblem" placeholder="Describe your issue..."
+                      style="display:none;"></textarea>
+
+            <button type="submit">Submit Issue</button>
+        </form>
+    </div>
+
+</body>
+</html>
