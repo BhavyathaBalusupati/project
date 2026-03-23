@@ -1,27 +1,45 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background:#f2f2f2;
     text-align:center;
-}
-
-h2{
-    background:#333;
-    color:white;
-    padding:12px;
     margin:0;
 }
 
+/* Header */
+h2{
+    background:#333;
+    color:white;
+    padding:15px;
+}
+
+/* Button */
+.refresh-btn{
+    margin-top:15px;
+    padding:10px 20px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.refresh-btn:hover{
+    background:#388e3c;
+}
+
+/* Table */
 table{
     margin:30px auto;
     border-collapse:collapse;
-    width:85%;
+    width:95%;
     background:white;
     box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
@@ -36,6 +54,7 @@ th{
     color:white;
 }
 
+/* Status Colors */
 .pending{
     color:red;
     font-weight:bold;
@@ -51,10 +70,31 @@ th{
     font-weight:bold;
 }
 
+/* No data */
 .no-data{
     padding:20px;
     font-weight:bold;
-    text-align:center;
+}
+
+/* Delete Button */
+button{
+    padding:6px 10px;
+    border:none;
+    background:red;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+button:hover{
+    background:darkred;
+}
+
+/* Responsive */
+@media (max-width:768px){
+    table{
+        font-size:12px;
+    }
 }
 </style>
 
@@ -64,47 +104,23 @@ th{
 
 <h2>Admin - Lab Issues Dashboard</h2>
 
+<button class="refresh-btn" onclick="loadIssues()">🔄 Refresh</button>
+
 <table id="issueTable">
+
 <tr>
-    <th>Lab Name</th>
-    <th>System Number</th>
+    <th>Reported By</th>
+    <th>Lab</th>
+    <th>System</th>
     <th>Problem</th>
     <th>Status</th>
+    <th>Action</th>
 </tr>
+
 </table>
 
-<script>
-// Load issues from localStorage
-const issues = JSON.parse(localStorage.getItem("issues")) || [];
-const table = document.getElementById("issueTable");
-
-if(issues.length === 0){
-    const row = table.insertRow();
-    const cell = row.insertCell(0);
-    cell.colSpan = 4;
-    cell.className = "no-data";
-    cell.innerHTML = "No issues reported";
-}
-
-// Display issues
-issues.forEach(issue => {
-    const row = table.insertRow();
-    const labCell = row.insertCell(0);
-    const systemCell = row.insertCell(1);
-    const problemCell = row.insertCell(2);
-    const statusCell = row.insertCell(3);
-
-    labCell.innerHTML = issue.lab;
-    systemCell.innerHTML = issue.system;
-    problemCell.innerHTML = issue.problem;
-    statusCell.innerHTML = issue.status;
-
-    // Set color class based on status
-    if(issue.status === "Pending") statusCell.className = "pending";
-    else if(issue.status === "In Progress") statusCell.className = "in-progress";
-    else if(issue.status === "Resolved") statusCell.className = "resolved";
-});
-</script>
+<!-- Firebase Logic -->
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
