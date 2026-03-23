@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #f2f2f2;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    max-width: 400px;
+}
+
+h2{
+    color: green;
+}
+
+p{
+    margin: 15px 0;
+    font-size: 18px;
+}
+
+button{
+    padding: 10px 20px;
+    border: none;
+    margin: 10px;
+    background: #333;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover{
+    background: #555;
+}
+
+.secondary{
+    background: #4CAF50;
+}
+
+.secondary:hover{
+    background: #388e3c;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>✅ Issue Submitted Successfully</h2>
+    <p>Your problem has been recorded.</p>
+    <p>Our technician will resolve it soon.</p>
+
+    <button onclick="goHome()">🏠 Home</button>
+  
+</div>
+
+<script>
+function goHome(){
+    window.location.href = "index.html";
+}
+
+function submitAnother(){
+    window.location.href = "issue.html";
+}
+
+// Optional auto redirect after 5 seconds
+setTimeout(() => {
+    window.location.href = "index.html";
+}, 5000);
+</script>
+
+</body>
+</html>
