@@ -1,16 +1,33 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lab Technician - Manage Problems</title>
-    <style>
-        body { font-family: Arial; background: #f4f4f4; padding: 30px; }
-        .card { background: white; padding: 20px; border-radius: 10px; width: 900px; margin: auto; box-shadow: 0 0 10px gray; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }
-        .btn { padding: 6px 10px; border: none; cursor: pointer; border-radius: 4px; color: white; }
-        .delete { background: red; }
-    </style>
+<title>Lab Technician Panel</title>
+
+<style>
+body { font-family: Arial; background: #f4f4f4; padding: 30px; }
+
+.card {
+background: white;
+padding: 20px;
+border-radius: 10px;
+width: 900px;
+margin: auto;
+box-shadow: 0 0 10px gray;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 15px;
+}
+
+th, td {
+padding: 10px;
+border: 1px solid #ddd;
+text-align: center;
+}
+</style>
+
 </head>
 <body>
 
@@ -18,89 +35,115 @@
 
 <div class="card">
 
-    <!-- Technician Name -->
-    <label>Enter Technician Name:</label>
-    <input type="text" id="techName" placeholder="Enter your name" style="width:100%; padding:8px;">
-    <button onclick="loadProblems()" style="width:100%; margin-top:10px; padding:10px;">View Problems</button>
+<label>Technician Name:</label>
+<input type="text" id="techName" placeholder="Enter your name" required style="width:100%; padding:8px;">
 
-    <h3>Reported Problems</h3>
+<button onclick="loadProblems()" style="width:100%; margin-top:10px; padding:10px;">
+Load Problems
+</button>
 
-    <table id="problemTable">
-        <tr>
-            <th>Lab</th>
-            <th>System No.</th>
-            <th>Problem</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </table>
+<h3>Reported Problems</h3>
+
+<table id="problemTable">
+<tr>
+<th>Lab</th>
+<th>System</th>
+<th>Problem</th>
+<th>Status</th>
+</tr>
+</table>
 
 </div>
 
-<script>
-// Load all issues from localStorage
-function loadProblems() {
-    const table = document.getElementById("problemTable");
+<script type="module">
 
-    // Reset table
-    table.innerHTML = `
-        <tr>
-            <th>Lab</th>
-            <th>System No.</th>
-            <th>Problem</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    `;
+import { db } from "./firebase.js";
+import { collection, getDocs, doc, updateDoc } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // Get issues from localStorage
-    const issues = JSON.parse(localStorage.getItem("issues")) || [];
+// ✅ Load problems
+window.loadProblems = async () => {
 
-    if(issues.length === 0){
-        const row = table.insertRow();
-        const cell = row.insertCell(0);
-        cell.colSpan = 5;
-        cell.innerHTML = "No issues reported.";
+    const techName = document.getElementById("techName").value.trim();
+
+    // 🔴 Make name mandatory
+    if (techName === "") {
+        alert("⚠ Please enter Technician Name");
         return;
     }
 
-    issues.forEach((issue, index) => {
-        const row = table.insertRow();
+    const table = document.getElementById("problemTable");
 
-        row.innerHTML = `
-            <td>${issue.lab || "N/A"}</td>
-            <td>${issue.system || "N/A"}</td>
-            <td>${issue.problem}</td>
-            <td>
-                <select onchange="updateStatus(${index}, this.value)">
-                    <option value="Pending" ${issue.status === "Pending" ? "selected" : ""}>Pending</option>
-                    <option value="In Progress" ${issue.status === "In Progress" ? "selected" : ""}>In Progress</option>
-                    <option value="Resolved" ${issue.status === "Resolved" ? "selected" : ""}>Resolved</option>
-                </select>
-            </td>
-            <td>
-                <button class="btn delete" onclick="deleteProblem(${index})">Remove</button>
-            </td>
-        `;
-    });
-}
+    table.innerHTML = `
+    <tr>
+        <th>Lab</th>
+        <th>System</th>
+        <th>Problem</th>
+        <th>Status</th>
+    </tr>
+    `;
 
-// Update status of an issue
-function updateStatus(index, newStatus) {
-    const issues = JSON.parse(localStorage.getItem("issues")) || [];
-    issues[index].status = newStatus;
-    localStorage.setItem("issues", JSON.stringify(issues));
-    alert("Status Updated!");
-}
+    try {
+        const snapshot = await getDocs(collection(db, "problems"));
 
-// Delete an issue
-function deleteProblem(index) {
-    const issues = JSON.parse(localStorage.getItem("issues")) || [];
-    issues.splice(index, 1);
-    localStorage.setItem("issues", JSON.stringify(issues));
-    loadProblems();
-    alert("Problem Removed!");
-}
+        if (snapshot.empty) {
+            table.innerHTML += "<tr><td colspan='4'>No problems found</td></tr>";
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const id = docSnap.id;
+
+            const row = `
+            <tr>
+                <td>${data.lab || "-"}</td>
+                <td>${data.system || "-"}</td>
+                <td>${data.problem}</td>
+
+                <td>
+                    <select onchange="updateStatus('${id}', this.value)">
+                        <option ${data.status==="Pending"?"selected":""}>Pending</option>
+                        <option ${data.status==="In Progress"?"selected":""}>In Progress</option>
+                        <option ${data.status==="Resolved"?"selected":""}>Resolved</option>
+                    </select>
+                </td>
+            </tr>
+            `;
+
+            table.innerHTML += row;
+        });
+
+    } catch (error) {
+        console.error(error);
+        alert("❌ Error loading data");
+    }
+};
+
+// ✅ Update status
+window.updateStatus = async (id, status) => {
+
+    const techName = document.getElementById("techName").value.trim();
+
+    if (techName === "") {
+        alert("⚠ Enter Technician Name first");
+        return;
+    }
+
+    try {
+        await updateDoc(doc(db, "problems", id), {
+            status: status,
+            updatedBy: techName   // 🔥 stores technician name
+        });
+
+        alert("✅ Status Updated!");
+
+    } catch (error) {
+        console.error(error);
+        alert("❌ Error updating status");
+    }
+};
+
 </script>
 
 </body>
