@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lab Issue System - Home</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color:#f2f2f2;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #333;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #4CAF50;
+}
+
+nav a.active {
+    background-color: #4CAF50;
+}
+
+/* Main Content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* Buttons */
+button, .btn {
+    padding: 12px 25px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #45a049;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feature-box {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.feature-box h3 {
+    color: #4CAF50;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li> <!-- Added -->
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Welcome to Lab Issue Reporting System</h1>
+    <p>A platform to report and manage laboratory issues efficiently.</p>
+    
+    <div class="features">
+        <div class="feature-box">
+            <h3>📋 Report Issues</h3>
+            <p>Submit lab problems quickly and easily.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>👥 User Roles</h3>
+            <p>Students, lecturers, technicians & admin access.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>⚡ Fast Resolution</h3>
+            <p>Track issues until they are resolved.</p>
+        </div>
+    </div>
+
+    <div style="margin: 2rem 0;">
+        <button onclick="goToRegister()">Get Started</button>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Lab Issue Reporting System</p>
+</footer>
+
+<script>
+function goToRegister() {
+    window.location.href = "register.html";
+}
+</script>
+
+</body>
+</html>
