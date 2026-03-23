@@ -3,134 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Lab Issue System - Home</title>
+<title>About - Digital Issue Management System</title>
 
 <style>
-* {
+body {
+    font-family: Arial;
+    background: #f4f7fb;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
-body{
-    background-color:#f2f2f2;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
-/* Navigation Bar */
-nav {
-    background-color: #333;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
-
-nav a {
+.header {
+    background: #2b7cff;
     color: white;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-}
-
-nav a:hover {
-    background-color: #4CAF50;
-}
-
-nav a.active {
-    background-color: #4CAF50;
-}
-
-/* Main Content */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 15px;
     text-align: center;
 }
 
-h1 {
-    font-size: 36px;
-    color: #333;
-    margin-bottom: 1rem;
+.container {
+    width: 80%;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h2 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 1rem;
+    color: #2b7cff;
 }
 
 p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 1rem;
+    line-height: 1.6;
+    margin: 10px 0;
 }
 
-/* Buttons */
-button, .btn {
-    padding: 12px 25px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+ul {
+    margin-left: 20px;
 }
 
-button:hover, .btn:hover {
-    background-color: #45a049;
-}
-
-/* Features Section */
-.features {
-    display: flex;
-    gap: 2rem;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.feature-box {
-    flex: 1;
-    min-width: 250px;
-    max-width: 300px;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.feature-box h3 {
-    color: #4CAF50;
-    margin-bottom: 1rem;
-}
-
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
+.footer {
     text-align: center;
-    padding: 1rem;
-    margin-top: 3rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        gap: 1rem;
-    }
+    padding: 10px;
+    margin-top: 20px;
+    color: gray;
 }
 </style>
 
@@ -138,51 +53,64 @@ footer {
 
 <body>
 
-<nav>
-    <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        
-        <li><a href="register.html">Register</a></li>
-        <li><a href="login.html">Login</a></li> <!-- Added -->
-    </ul>
-</nav>
-
-<div class="container">
-    <h1>Welcome to Lab Issue Reporting System</h1>
-    <p>A platform to report and manage laboratory issues efficiently.</p>
-    
-    <div class="features">
-        <div class="feature-box">
-            <h3>📋 Report Issues</h3>
-            <p>Submit lab problems quickly and easily.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>👥 User Roles</h3>
-            <p>Students, lecturers, technicians & admin access.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>⚡ Fast Resolution</h3>
-            <p>Track issues until they are resolved.</p>
-        </div>
-    </div>
-
-    <div style="margin: 2rem 0;">
-        <button onclick="goToRegister()">Get Started</button>
-    </div>
+<div class="header">
+    <h1>Digital Issue Management System</h1>
 </div>
 
-<footer>
-    <p>&copy; 2026 Lab Issue Reporting System</p>
-</footer>
+<div class="container">
 
-<script>
-function goToRegister() {
-    window.location.href = "register.html";
-}
-</script>
+<h2>📌 About the Project</h2>
+<p>
+This project is designed to manage and track system-related issues reported in computer labs.
+Students and lecturers can report problems, and technicians can resolve them efficiently.
+</p>
+
+<h2>🎯 Objectives</h2>
+<ul>
+    <li>Provide an easy way to report system issues</li>
+    <li>Allow technicians to track and resolve problems</li>
+    <li>Enable admin to monitor all complaints</li>
+    <li>Maintain a centralized database using Firebase</li>
+</ul>
+
+<h2>👥 Users of the System</h2>
+<ul>
+    <li><b>Students</b> – Submit system problems</li>
+    <li><b>Lecturers</b> – Report lab-related issues</li>
+    <li><b>Technicians</b> – View and update problem status</li>
+    <li><b>Admin</b> – Monitor and manage all issues</li>
+</ul>
+
+<h2>⚙️ Technologies Used</h2>
+<ul>
+    <li>HTML, CSS, JavaScript</li>
+    <li>Firebase Firestore Database</li>
+    <li>GitHub for hosting</li>
+    <li>VS Code for development</li>
+</ul>
+
+<h2>✨ Key Features</h2>
+<ul>
+    <li>Online issue submission</li>
+    <li>Real-time database storage</li>
+    <li>Status tracking (Pending, In Progress, Resolved)</li>
+    <li>Admin control panel</li>
+    <li>Technician dashboard</li>
+</ul>
+
+<h2>🚀 Future Enhancements</h2>
+<ul>
+    <li>User login authentication</li>
+    <li>Email notifications</li>
+    <li>Priority-based issue handling</li>
+    <li>Search and filter options</li>
+</ul>
+
+</div>
+
+<div class="footer">
+    <p>© 2026 Digital Issue Management System</p>
+</div>
 
 </body>
 </html>
