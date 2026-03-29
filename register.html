@@ -4,21 +4,49 @@
     <title>Register Page</title>
     <style>
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             padding: 40px;
+            margin:0;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background: linear-gradient(135deg, #e3f2fd, #fce4ec);
         }
+
+        h2{
+            position:absolute;
+            top:50px;
+            color:#333;
+            font-size:28px;
+        }
+
         .card {
-            width: 300px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px gray;
+            width: 320px;
+            padding: 25px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            text-align:center;
         }
+
         button {
             width: 100%;
-            padding: 10px;
-            margin-top: 10px;
+            padding: 12px;
+            margin-top: 12px;
             font-size: 16px;
             cursor: pointer;
+            border:none;
+            border-radius: 25px;
+            color:#333;
+            background: linear-gradient(45deg,#90caf9,#a5d6a7);
+            transition:0.3s;
+        }
+
+        button:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -27,28 +55,27 @@
 <h2>Select Your Role</h2>
 
 <div class="card">
-    <button onclick="openStudent()">Student</button>
-    <button onclick="openLecturer()">Lecturer</button>
-    <button onclick="openLabTech()">Lab Technician</button>
-    <button onclick="openAdmin()">Admin</button>
+    <button onclick="openStudent()">👨‍🎓 Student</button>
+    <button onclick="openLecturer()">👩‍🏫 Lecturer</button>
+    <button onclick="openLabTech()">🛠 Lab Technician</button>
+    <button onclick="openAdmin()">🔐 Admin</button>
 </div>
 
 <script>
 function openStudent() {
-    window.location.href = "issue.html";   // Opens your existing login page
+    window.location.href = "issue.html";
 }
 
 function openLecturer() {
-    
     window.location.href = "lecturerproblem.html";
-}3
+}
 
 function openLabTech() {
     window.location.href="technician.html";
 }
 
 function openAdmin() {
-      window.location.href="admin.html";
+    window.location.href="admin.html";
 }
 </script>
 
