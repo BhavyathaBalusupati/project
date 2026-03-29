@@ -3,177 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Lab Issue System - Home</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-    background-color:#f2f2f2;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family:'Poppins',sans-serif;
+    background: linear-gradient(120deg,#89f7fe,#66a6ff);
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
-/* Navigation Bar */
-nav {
-    background-color: #333;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+/* Floating background circles */
+body::before, body::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    opacity:0.2;
+}
+body::before{
+    width:300px;height:300px;
+    background:#fff;
+    top:10%;left:5%;
+}
+body::after{
+    width:400px;height:400px;
+    background:#fff;
+    bottom:5%;right:10%;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
+/* Navbar */
+nav{
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(10px);
+    padding:1rem;
+    position:sticky;
+    top:0;
+}
+nav ul{
+    display:flex;
+    justify-content:center;
+    gap:2rem;
+    list-style:none;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:10px 22px;
+    border-radius:30px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.3);
+    transition:all 0.3s ease;
+}
+nav a:hover, nav a.active{
+    background:linear-gradient(45deg,#00c853,#64dd17);
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+/* Glass Container */
+.container{
+    max-width:1100px;
+    margin:3rem auto;
+    padding:3rem 2rem;
+    text-align:center;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.2);
 }
 
-nav a:hover {
-    background-color: #4CAF50;
+h1{
+    font-size:42px;
+    font-weight:700;
+    color:#fff;
 }
 
-nav a.active {
-    background-color: #4CAF50;
+p{
+    color:#f1f1f1;
+    margin-top:10px;
+    font-size:18px;
 }
 
-/* Main Content */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    text-align: center;
+/* Button */
+.btn{
+    margin-top:2rem;
+    padding:14px 35px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff9800,#ff5722);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+.btn:hover{
+    transform:scale(1.08);
 }
 
-h1 {
-    font-size: 36px;
-    color: #333;
-    margin-bottom: 1rem;
+/* Features */
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:2rem;
+    margin-top:3rem;
 }
 
-h2 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 1rem;
+.feature-box{
+    background:rgba(255,255,255,0.9);
+    padding:2rem;
+    border-radius:15px;
+    transition:0.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
 }
 
-p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 1rem;
+.feature-box:hover{
+    transform:translateY(-12px) scale(1.03);
 }
 
-/* Buttons */
-button, .btn {
-    padding: 12px 25px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.feature-box h3{
+    color:#ff5722;
+    margin-bottom:10px;
+    font-weight:700;
+    letter-spacing:0.5px;
 }
 
-button:hover, .btn:hover {
-    background-color: #45a049;
+.feature-box p{
+    font-size:16px;
+    color:#444;
+    line-height:1.6;
+    font-weight:500;
+    letter-spacing:0.3px;
+    margin-top:8px;
 }
 
-/* Features Section */
-.features {
-    display: flex;
-    gap: 2rem;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Stats Section */
+.stats{
+    display:flex;
+    justify-content:space-around;
+    margin-top:3rem;
+    flex-wrap:wrap;
+    gap:1rem;
 }
-
-.feature-box {
-    flex: 1;
-    min-width: 250px;
-    max-width: 300px;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.stat{
+    color:white;
+    font-size:22px;
 }
-
-.feature-box h3 {
-    color: #4CAF50;
-    margin-bottom: 1rem;
+.stat span{
+    display:block;
+    font-size:32px;
+    font-weight:bold;
 }
 
 /* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 3rem;
+footer{
+    margin-top:3rem;
+    text-align:center;
+    color:white;
+    padding:1rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        gap: 1rem;
-    }
+@media(max-width:768px){
+    h1{font-size:28px}
 }
 </style>
-
 </head>
 
 <body>
 
 <nav>
-    <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="register.html">Register</a></li>
-    </ul>
+<ul>
+<li><a href="index.html" class="active">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="register.html">Register</a></li>
+</ul>
 </nav>
 
 <div class="container">
-    <h1>Welcome to Digital Issues Cart Management System</h1>
-    <p>A platform to report and manage laboratory issues efficiently.</p>
-    
-    <div class="features">
-        <div class="feature-box">
-            <h3>📋 Report Issues</h3>
-            <p>Submit lab problems quickly and easily.</p>
-        </div>
+<h1> Digital Issues Cart Management System</h1>
+<p>Smart way to report, manage & resolve lab issues instantly.</p>
 
-        <div class="feature-box">
-            <h3>👥 User Roles</h3>
-            <p>Students, lecturers, technicians & admin access.</p>
-        </div>
+<button class="btn" onclick="goToRegister()">Get Started</button>
 
-        <div class="feature-box">
-            <h3>⚡ Fast Resolution</h3>
-            <p>Track issues until they are resolved.</p>
-        </div>
-    </div>
+<div class="features">
+<div class="feature-box">
+<h3>📋 Report Issues</h3>
+<p>Submit lab problems in seconds with a smooth interface.</p>
+</div>
 
-    <div style="margin: 2rem 0;">
-        <button onclick="goToRegister()">Get Started</button>
-    </div>
+<div class="feature-box">
+<h3>👥 Multi-User Access</h3>
+<p>Students, faculty & admins all in one system.</p>
+</div>
+
+<div class="feature-box">
+<h3>⚡ Real-Time Tracking</h3>
+<p>Track status and updates instantly.</p>
+</div>
+</div>
+
+
 </div>
 <script>
-function goToRegister() {
-    window.location.href = "register.html";
+function goToRegister(){
+window.location.href="register.html";
 }
 </script>
 
