@@ -90,17 +90,26 @@ button:hover{
     background:darkred;
 }
 
-/* Responsive */
-@media (max-width:768px){
-    table{
-        font-size:12px;
-    }
+/* Hide dashboard initially */
+#dashboard{
+    display:none;
+}
+
+/* Access denied message */
+#denied{
+    margin-top:50px;
+    color:red;
+    font-size:20px;
+    font-weight:bold;
 }
 </style>
 
 </head>
 
 <body>
+
+<!-- Dashboard Content -->
+<div id="dashboard">
 
 <h2>Admin - Lab Issues Dashboard</h2>
 
@@ -119,8 +128,24 @@ button:hover{
 
 </table>
 
+</div>
+
+<!-- Access Denied -->
+<div id="denied"></div>
+
 <!-- Firebase Logic -->
 <script type="module" src="admin.js"></script>
+
+<!-- Password Script -->
+<script>
+let password = prompt("Enter Admin Password:");
+
+if(password === "jntuhces"){
+    document.getElementById("dashboard").style.display = "block";
+}else{
+    document.getElementById("denied").innerText = "❌ Access Denied!";
+}
+</script>
 
 </body>
 </html>
