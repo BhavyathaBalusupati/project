@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyDkLV43v0FzT31VHECdF23Qexwv92TrSrM",
     authDomain: "digital-issue-cart-management.firebaseapp.com",
     projectId: "digital-issue-cart-management",
     storageBucket: "digital-issue-cart-management.appspot.com",
